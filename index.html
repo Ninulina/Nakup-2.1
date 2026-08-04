@@ -10,98 +10,85 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
 
-    <header>
-        <h1>🛒 Nákup 2.1</h1>
+<div class="container">
 
-        <button id="darkModeBtn">
-            🌙
-        </button>
-    </header>
+    <h1>🛒 Nákup 2.1</h1>
 
 
+    <section>
 
-    <main>
-
-        <section>
-
-            <h2>Nový nákup</h2>
-
-
-            <label>
-                Datum:
-            </label>
-
+        <label>
+            Datum:
             <input type="date" id="datum">
+        </label>
 
 
-            <label>
-                Osoba:
-            </label>
-
+        <label>
+            Osoba:
             <select id="osoba">
+                <option value="A">A</option>
+                <option value="S">S</option>
+                <option value="K">K</option>
+                <option value="N">N</option>
+                <option value="D">D</option>
             </select>
+        </label>
 
 
-            <label>
-                Částka:
-            </label>
-
+        <label>
+            Částka:
             <input 
-                type="number"
-                id="castka"
+                type="number" 
+                id="castka" 
                 placeholder="Kč">
+        </label>
 
 
-            <label>
-                Poznámka:
-            </label>
-
-            <input
-                type="text"
-                id="poznamka"
+        <label>
+            Poznámka:
+            <input 
+                type="text" 
+                id="poznamka" 
                 placeholder="Poznámka">
+        </label>
 
 
-            <button id="ulozit">
-                Přidat nákup
-            </button>
+        <button id="ulozit">
+            Uložit nákup
+        </button>
 
-        </section>
-
-
-
-        <section>
-
-            <h2>Seznam nákupů</h2>
+    </section>
 
 
-            <table>
 
-                <thead>
-                    <tr>
-                        <th>Datum</th>
-                        <th>Osoba</th>
-                        <th>Částka</th>
-                        <th>Poznámka</th>
-                        <th>Akce</th>
-                    </tr>
-                </thead>
+    <h2>📋 Přehled nákupů</h2>
 
 
-                <tbody id="tabulkaNakupu">
+    <table>
 
-                </tbody>
+        <thead>
+
+            <tr>
+                <th>Datum</th>
+                <th>Osoba</th>
+                <th>Částka</th>
+                <th>Poznámka</th>
+                <th>Akce</th>
+            </tr>
+
+        </thead>
 
 
-            </table>
+        <tbody id="tabulka">
+        </tbody>
 
-        </section>
+
+    </table>
 
 
-    </main>
+</div>
 
 
 <script src="app.js"></script>
