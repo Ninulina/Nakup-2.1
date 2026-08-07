@@ -51,7 +51,8 @@ document
         datum,
         osoba,
         castka,
-        poznamka
+        poznamka,
+        jmeno
 
     };
 
