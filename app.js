@@ -1,176 +1,159 @@
 /* ---------------------------------
    Nákup 2.1
-   Vzhled aplikace
+   Funkce aplikace
 ----------------------------------*/
 
-* {
-    box-sizing: border-box;
-}
 
+let nakupy = JSON.parse(
+    localStorage.getItem("nakupy")
+) || [];
 
-body {
-    margin: 0;
-    padding: 20px;
 
-    font-family:
-        "Segoe UI",
-        Arial,
-        sans-serif;
+// dnešní datum
 
-    background: #f2f8f2;
-    color: #333;
-}
+document.getElementById("datum").value =
+    new Date().toISOString().split("T")[0];
 
 
 
-.container {
+// uložení nákupu
 
-    max-width: 900px;
+document
+.getElementById("ulozit")
+.addEventListener("click", function () {
 
-    margin: auto;
 
-    background: white;
+    const datum =
+        document.getElementById("datum").value;
 
-    padding: 25px;
+    const osoba =
+        document.getElementById("osoba").value;
 
-    border-radius: 15px;
+    const castka =
+        Number(document.getElementById("castka").value);
 
-    box-shadow:
-        0 4px 15px rgba(0,0,0,0.15);
+    const poznamka =
+        document.getElementById("poznamka").value;
 
-}
 
 
+    if (!castka) {
+        alert("Zadej částku");
+        return;
+    }
 
-h1 {
 
-    text-align: center;
 
-    color: #2e7d32;
+    const novyNakup = {
 
-}
+        id: Date.now(),
 
+        datum,
+        osoba,
+        castka,
+        poznamka
 
+    };
 
-h2 {
 
-    margin-top: 30px;
 
-    color: #2e7d32;
+    nakupy.push(novyNakup);
 
-}
 
 
+    localStorage.setItem(
+        "nakupy",
+        JSON.stringify(nakupy)
+    );
 
-section {
 
-    display: flex;
 
-    flex-wrap: wrap;
+    zobrazNakupy();
 
-    gap: 10px;
 
-    align-items: center;
 
-}
+    document.getElementById("castka").value = "";
+    document.getElementById("poznamka").value = "";
 
+});
 
 
-label {
 
-    display: flex;
 
-    flex-direction: column;
+// zobrazení tabulky
 
-    font-weight: bold;
+function zobrazNakupy() {
 
-}
 
+    const tabulka =
+        document.getElementById("tabulka");
 
 
-input,
-select {
+    tabulka.innerHTML = "";
 
-    padding: 9px;
 
-    border-radius: 8px;
 
-    border: 1px solid #ccc;
+    nakupy.forEach(function(nakup) {
 
-    min-width: 140px;
 
-}
+        const radek =
+            document.createElement("tr");
 
 
 
-button {
+        radek.innerHTML = `
 
-    margin-top: 20px;
+        <td>${nakup.datum}</td>
 
-    padding: 10px 18px;
+        <td>${nakup.osoba}</td>
 
-    border: none;
+        <td>${nakup.castka} Kč</td>
 
-    border-radius: 8px;
+        <td>${nakup.poznamka}</td>
 
-    background: #2e7d32;
+        <td>
+            <button onclick="smazat(${nakup.id})">
+            Smazat
+            </button>
+        </td>
 
-    color: white;
+        `;
 
-    font-size: 16px;
 
-    cursor: pointer;
+        tabulka.appendChild(radek);
 
-}
 
+    });
 
-
-button:hover {
-
-    background: #1b5e20;
-
-}
-
-
-
-table {
-
-    width: 100%;
-
-    border-collapse: collapse;
-
-    margin-top: 15px;
 
 }
 
 
 
-th {
 
-    background: #2e7d32;
+// mazání
 
-    color: white;
-
-    padding: 10px;
-
-}
+function smazat(id) {
 
 
-
-td {
-
-    padding: 10px;
-
-    border-bottom: 1px solid #ddd;
-
-    text-align: center;
-
-}
+    nakupy =
+        nakupy.filter(
+            n => n.id !== id
+        );
 
 
+    localStorage.setItem(
+        "nakupy",
+        JSON.stringify(nakupy)
+    );
 
-tr:hover {
 
-    background: #f1f8e9;
+    zobrazNakupy();
 
 }
+
+
+
+// spuštění po načtení
+
+zobrazNakupy();
