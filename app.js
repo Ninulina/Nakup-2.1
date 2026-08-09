@@ -52,7 +52,6 @@ document
         osoba,
         castka,
         poznamka,
-        jmeno
 
     };
 
